@@ -136,4 +136,5 @@ Credit for tutorials and guides I utilized in my code
 
 [JSHint Package](https://www.npmjs.com/package/jshint): To detect errors and potential problems in JavaScript
 
+[Recursive Key](https://assets.ctfassets.net/kdr3qnns3kvk/MlzrannWSaE6qWOsquqwa/34c2afb04f1e55aaa7c9f73b8c41ecf7/chapt06.pdf): How to reference the employeeID as the managerID
 
