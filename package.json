@@ -1,0 +1,33 @@
+{
+  "name": "emanage",
+  "version": "1.0.0",
+  "description": "Command-line application to manage a company's employee database, using Node.js, Inquirer, Express, and MySQL.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mewing0328/eManage.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Inquirer",
+    "jshint",
+    "console.table",
+    "MySQL"
+  ],
+  "author": "MaSandra Ewing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mewing0328/eManage/issues"
+  },
+  "homepage": "https://github.com/mewing0328/eManage#readme",
+  "dependencies": {
+    "jshint": "^2.13.6",
+    "mysql2": "^3.1.0",
+    "inquirer": "^8.2.4",
+    "console.table": "^0.10.0"
+  }
+}
