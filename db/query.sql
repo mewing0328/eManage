@@ -1,6 +1,8 @@
-SELECT roles.role_title AS role_id, employees.first_name
+-- Joins departments table by dept_id
+-- Joins roles table by role_id
+SELECT id, first_name, last_name, role_title, dept_name, salary, manager_id
 FROM employees
-LEFT JOIN roles
-ON employees.role_id = roles.id
-ORDER BY roles.role_title;
+NATURAL JOIN roles
+NATURAL JOIN departments;
 
+-- TO DO: Figure out how to join the manager_id

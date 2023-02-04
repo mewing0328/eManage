@@ -138,3 +138,5 @@ Credit for tutorials and guides I utilized in my code
 
 [Recursive Key](https://assets.ctfassets.net/kdr3qnns3kvk/MlzrannWSaE6qWOsquqwa/34c2afb04f1e55aaa7c9f73b8c41ecf7/chapt06.pdf): How to reference the employeeID as the managerID
 
+[w3resource.com](https://www.w3resource.com/sql-exercises/movie-database-exercise/joins-exercises-on-movie-database.php): Tutorials for different SQL examples
+
