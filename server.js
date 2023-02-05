@@ -1,6 +1,6 @@
 //Import and require mysql2
 const mysql = require('mysql2');
-const consoleTable = require('console.table');
+const cTable = require('console.table');
 const inquirer = require('inquirer');
 const inquirerQuestions = require('./lib/inquirerQuestions');
 
@@ -8,6 +8,7 @@ const db = mysql.createConnection(
     {
         host: 'localhost',
         //MySQL username
+        port: 3306,
         user: 'root',
         //MySQL password
         password: 'password',
@@ -28,15 +29,18 @@ function init(){
 
 function askUser(){
   inquirer.prompt(inquirerQuestions.menu)
-  .then((menuAnswer) =>
-  {const choice = menuAnswer;
-    if (choice === "View All Employees"){
-      viewAllEmpl();
-    }
-  })
-};
+  .then((menuAnswer) => {
+      if (menuAnswer === "View All Employees"){
+      //     viewAllEmpl();
+      console.log("The choice works!")
+      //CODE BROKEN HERE! Console.log not working.
+      };
+    })
+  };
 
 function viewAllEmpl () {
+  console.log('This here first works!')
+
   let sqlProcedure = 
       `SELECT id, first_name, last_name, role_title, dept_name, salary, manager
       FROM employees
@@ -44,7 +48,8 @@ function viewAllEmpl () {
       NATURAL JOIN departments`;
   db.promise().query(sqlProcedure, (err, response) => {
     if (err) throw err;
-    console.table(response);
+    console.log('This works!')
+    cTable(response);
     });
 };
 
