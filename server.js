@@ -18,12 +18,12 @@ const connection = mysql.createConnection(
     console.log(`Connected to the employees_db database.`)
 );
 
+// Initiate app and start with the menu inquirer
 init();
 function init(){
   console.log("Hello! Welcome to eManage, your employee database.");
   connection.connect((err) => {
     if (err) throw err;
-    console.log(`Testing connection`);
     askUser();
   }); 
 };
@@ -31,20 +31,37 @@ function init(){
 function askUser () {
   inquirer.prompt(inquirerQuestions.menu)
   .then((answer) => {
-      if (answer.menuAnswer === 'View All Employees'){
+      if (answer.menuAnswer === 'View All Departments') {
+          viewAllDepts();
+      }
+      else if (answer.menuAnswer === 'View All Employees'){
           viewAllEmpl();
-      console.log("The choice works!");
-      //CODE BROKEN HERE! Console.log not working.
       }
       else
-      {console.log(answer.menuAnswer);
+      {console.log('BUG AT askUser function');
       }
     });
   };
 
-const viewAllEmpl = () => {
-  console.log('This here first works!')
 
+
+  // VIEW ALL DEPARTMENTS
+  const viewAllDepts = () => {
+    let sqlProcedure = 
+        `SELECT dept_id AS 'ID', dept_name AS 'NAME'
+        FROM departments`;
+    connection.promise().query(sqlProcedure)
+        .then ( ([rows, fields]) => {
+          console.table(rows);
+        })
+        .catch(console.table)
+        .then ( () => connection.end());
+  };
+  
+
+  // VIEW ALL EMPLOYEES
+
+const viewAllEmpl = () => {
   let sqlProcedure = 
       `SELECT id, first_name, last_name, role_title, dept_name, salary, manager
       FROM employees
@@ -58,37 +75,6 @@ const viewAllEmpl = () => {
       .then ( () => connection.end());
 };
 
-// // with placeholder
-// connection.query(
-//   'SELECT * FROM `employees` WHERE `first_name` = ? OR `role_id` = ?',
-//   ['John', 1],
-//   function(err, results) {
-//     console.table(results);
-//   }
-// );
 
-// // with placeholder
-// connection.query(
-//   'SELECT * FROM `employees` WHERE `first_name` = ? OR `role_id` = ?',
-//   ['John', 1],
-//   function(err, results) {
-//     console.table(results);
-//   }
-// );
-
-
-
-
-
-
-
-
-
-// // Default response for any other request (Not Found)
-// app.use((req, res) => {
-//     res.status(404).end();
-//   });
-  
-//   app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//   });
+// USE for when the user is done 
+// .then ( () => connection.end());

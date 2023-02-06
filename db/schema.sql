@@ -23,10 +23,8 @@ CREATE TABLE employees (
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   role_id INT,
-  manager INT,
+  manager INT REFERENCES employees(id),
   FOREIGN KEY (role_id)
   REFERENCES roles(role_id)
-  ON DELETE SET NULL,
-  CONSTRAINT fk_has_manager foreign key (manager)
-  REFERENCES employees(id)
+  ON DELETE SET NULL
 );
