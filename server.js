@@ -37,6 +37,15 @@ function askUser () {
       else if (answer.menuAnswer === 'View All Employees'){
           viewAllEmpl();
       }
+      else if (answer.menuAnswer === 'View All Roles'){
+        viewAllRoles();
+      }
+      else if (answer.menuAnswer === 'Add Department'){
+        addDept();
+      }
+      else if (answer.menuAnswer === 'Add Role'){
+        addRole();
+      }
       else
       {console.log('BUG AT askUser function');
       }
@@ -48,22 +57,36 @@ function askUser () {
   // VIEW ALL DEPARTMENTS
   const viewAllDepts = () => {
     let sqlProcedure = 
-        `SELECT dept_id AS 'ID', dept_name AS 'NAME'
+        `SELECT dept_id AS 'ID', dept_name AS 'DEPARTMENT'
         FROM departments`;
     connection.promise().query(sqlProcedure)
         .then ( ([rows, fields]) => {
           console.table(rows);
         })
         .catch(console.table)
-        .then ( () => connection.end());
-  };
+        .then (askUser);
+};
   
 
-  // VIEW ALL EMPLOYEES
+  // VIEW ALL ROLES
+  const viewAllRoles = () => {
+    let sqlProcedure = 
+        `SELECT role_id AS 'ID', role_title AS 'JOB TITLE', dept_name AS 'DEPARTMENT', salary AS 'SALARY'
+        FROM roles
+        NATURAL JOIN departments`;
+    connection.promise().query(sqlProcedure)
+        .then ( ([rows, fields]) => {
+          console.table(rows);
+        })
+        .catch(console.table)
+        .then (askUser);
+};
 
+
+  // VIEW ALL EMPLOYEES
 const viewAllEmpl = () => {
   let sqlProcedure = 
-      `SELECT id, first_name, last_name, role_title, dept_name, salary, manager
+      `SELECT id AS 'ID', first_name AS 'FIRST NAME', last_name AS 'LAST NAME', role_title AS 'JOB TITLE', dept_name AS 'DEPARTMENT', salary 'SALARY', manager AS 'MANAGER'
       FROM employees
       NATURAL JOIN roles
       NATURAL JOIN departments`;
@@ -72,8 +95,58 @@ const viewAllEmpl = () => {
         console.table(rows);
       })
       .catch(console.table)
-      .then ( () => connection.end());
+      .then (askUser);
 };
+
+// ADD DEPT
+const addDept = () => {
+  inquirer.prompt(inquirerQuestions.department)
+  .then((answer) => {
+  let response = answer.newDept;
+  let sqlProcedure = 
+    `INSERT INTO departments (dept_name)
+    VALUES (?)`;
+  connection.promise().query(sqlProcedure, response)
+    .then ( ([rows]) => {
+      console.table('Row inserted:' + results.affectedRows);
+    })
+    .catch (console.table)
+    .then (viewAllDepts)
+    .then (askUser); 
+  })
+};
+
+
+// ADD ROLE
+const addRole = () => {
+
+ // run a SQL query for the current departments
+  let sqlProcedure = 
+    `SELECT dept_name FROM departments`
+    connection.promise().query(sqlProcedure)
+    .then ( ([rows]) => {
+      console.table(rows);
+        inquirer.prompt ([
+          {
+            type: 'list',
+            name: 'newRoleDept',
+            message: 'Which department does the new role belong?',
+            choices: rows
+          }
+        ])
+      },
+    )
+    // .then (inquirer.prompt(inquirerQuestions.role));
+};
+
+
+
+  
+  
+
+  
+
+
 
 
 // USE for when the user is done 

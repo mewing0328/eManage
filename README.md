@@ -141,3 +141,5 @@ Credit for tutorials and guides I utilized in my code
 [w3resource.com](https://www.w3resource.com/sql-exercises/movie-database-exercise/joins-exercises-on-movie-database.php): Tutorials for different SQL examples
 
 [npm: mysql2](https://www.npmjs.com/package/mysql2): Promises examples.
+
+[mysqltutorial.org](https://www.mysqltutorial.org/mysql-nodejs/insert/): How to add a new row to a SQL table with an inquirer answer
