@@ -124,19 +124,28 @@ const addRole = () => {
   let sqlProcedure = 
     `SELECT dept_name FROM departments`
     connection.promise().query(sqlProcedure)
+
     .then ( ([rows]) => {
-      console.table(rows);
-        inquirer.prompt ([
-          {
-            type: 'list',
-            name: 'newRoleDept',
-            message: 'Which department does the new role belong?',
-            choices: rows
-          }
-        ])
-      },
-    )
-    // .then (inquirer.prompt(inquirerQuestions.role));
+      console.info(rows); // an object of just department names
+      const departments = []; // created a blank array
+      // for loop to push array items into the blank array
+      for (let i=0; i < rows.length; i++) {
+          departments.push(rows[i].dept_name) // my rows array had dept_name as the beginning part of each department
+        }
+      
+
+      console.log(departments)
+
+      inquirer.prompt ([
+        {
+          type: 'list',
+          name: 'newRoleDept',
+          message: 'Which department does the new role belong?',
+          choices: departments //shows each department from the const which was for looped above
+        }
+      ])
+    })
+    .then (inquirer.prompt(inquirerQuestions.role));
 };
 
 
