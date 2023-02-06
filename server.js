@@ -4,10 +4,11 @@ const cTable = require('console.table');
 const inquirer = require('inquirer');
 const inquirerQuestions = require('./lib/inquirerQuestions');
 
-const db = mysql.createConnection(
+// create the connection to database
+const connection = mysql.createConnection(
     {
         host: 'localhost',
-        //MySQL username
+      //MySQL username
         port: 3306,
         user: 'root',
         //MySQL password
@@ -20,25 +21,28 @@ const db = mysql.createConnection(
 init();
 function init(){
   console.log("Hello! Welcome to eManage, your employee database.");
-  db.connect((err) => {
+  connection.connect((err) => {
     if (err) throw err;
     console.log(`Testing connection`);
     askUser();
   }); 
 };
 
-function askUser(){
+function askUser () {
   inquirer.prompt(inquirerQuestions.menu)
-  .then((menuAnswer) => {
-      if (menuAnswer === "View All Employees"){
-      //     viewAllEmpl();
-      console.log("The choice works!")
+  .then((answer) => {
+      if (answer.menuAnswer === 'View All Employees'){
+          viewAllEmpl();
+      console.log("The choice works!");
       //CODE BROKEN HERE! Console.log not working.
-      };
-    })
+      }
+      else
+      {console.log(answer.menuAnswer);
+      }
+    });
   };
 
-function viewAllEmpl () {
+const viewAllEmpl = () => {
   console.log('This here first works!')
 
   let sqlProcedure = 
@@ -46,13 +50,31 @@ function viewAllEmpl () {
       FROM employees
       NATURAL JOIN roles
       NATURAL JOIN departments`;
-  db.promise().query(sqlProcedure, (err, response) => {
-    if (err) throw err;
-    console.log('This works!')
-    cTable(response);
-    });
+  connection.promise().query(sqlProcedure)
+      .then ( ([rows, fields]) => {
+        console.table(rows);
+      })
+      .catch(console.table)
+      .then ( () => connection.end());
 };
 
+// // with placeholder
+// connection.query(
+//   'SELECT * FROM `employees` WHERE `first_name` = ? OR `role_id` = ?',
+//   ['John', 1],
+//   function(err, results) {
+//     console.table(results);
+//   }
+// );
+
+// // with placeholder
+// connection.query(
+//   'SELECT * FROM `employees` WHERE `first_name` = ? OR `role_id` = ?',
+//   ['John', 1],
+//   function(err, results) {
+//     console.table(results);
+//   }
+// );
 
 
 
