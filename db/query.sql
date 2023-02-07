@@ -22,5 +22,6 @@ INSERT INTO roles (role_title, salary, dept_id)
 VALUES (?);
 
 
+
 -- TO DO: Figure out how to join the manager
 

@@ -112,40 +112,117 @@ const addDept = () => {
     })
     .catch (console.table)
     .then (viewAllDepts)
-    .then (askUser); 
   })
 };
 
 
 // ADD ROLE
-const addRole = () => {
+const addRole = () => {          
+          connection.promise().query(`SELECT dept_name FROM departments`)
+          .then ( ([rows]) => {
+            //console.info(rows); // an object of just department names
+            const departments = []; // created a blank array
+            // for loop to push array items into the blank array
+            for (let i=0; i < rows.length; i++) {
+                departments.push(rows[i].dept_name) // my rows array had dept_name as the beginning part of each department
+              }
+              console.log (departments)
+              inquirer.prompt ([
+                        {
+                          type: 'input',
+                          name: 'newRole',
+                          message: 'What is the name of the role?',
+                          validate: function(answer){
+                              if(!isNaN(answer)) return "Only use letters.";
+                              else return true;
+                          }
+                      },
+                      {
+                          type: 'input',
+                          name: 'newSalary',
+                          message: 'What is the salary of the role?',
+                          validate: function(answer){
+                              if(isNaN(answer)) return "Only use numbers.";
+                              else return true;
+                          }
+                      },
+                      {
+                        type: 'list',
+                        name: 'newRoleDept',
+                        message: 'Which department does the new role belong?',
+                        choices: departments //shows each department from the const which was for looped above
+                      }
+                    ])
+            
+                  .then((answers) => {
+                    let responses = [
+                      [answers.newRole],
+                      [answers.newSalary],
+                      [answers.newRoleDept]
+                    ];
+                    console.log(responses)
+                    let sqlProcedure = 
+                      `INSERT INTO roles (role_title, salary, dept_id)
+                      VALUES (?, ?, ?)`;
+            
+                    connection.promise().query(sqlProcedure, responses)
+                      .then ( ([rows]) => {
+                        console.table('Row inserted:' + results.affectedRows);
+                      })
+                      .catch(console.table)
+                      // .then (viewAllRoles)
+                    })
 
- // run a SQL query for the current departments
-  let sqlProcedure = 
-    `SELECT dept_name FROM departments`
-    connection.promise().query(sqlProcedure)
 
-    .then ( ([rows]) => {
-      console.info(rows); // an object of just department names
-      const departments = []; // created a blank array
-      // for loop to push array items into the blank array
-      for (let i=0; i < rows.length; i++) {
-          departments.push(rows[i].dept_name) // my rows array had dept_name as the beginning part of each department
-        }
+
+            })
+
+
+        
+
+        
+
+        
+    
+
+
+
       
 
-      console.log(departments)
+        // // run a SQL query for the current departments
 
-      inquirer.prompt ([
-        {
-          type: 'list',
-          name: 'newRoleDept',
-          message: 'Which department does the new role belong?',
-          choices: departments //shows each department from the const which was for looped above
-        }
-      ])
-    })
-    .then (inquirer.prompt(inquirerQuestions.role));
+        
+
+        // //console.log(departments)
+
+
+
+
+        // // const partTwo = () => {
+        // //   inquirer.prompt(inquirerQuestions.role)
+        // //   .then((answers) => {
+        // //     let responses = [
+        // //       [answers.newRole],
+        // //       [answers.newSalary],
+        // //       [answers.newRoleDept]
+        // //     ];
+        // //     console.log(responses)
+        // //     let sqlProcedure = 
+        // //       `INSERT INTO roles (role_title, salary, dept_id)
+        // //       VALUES (?, ?, ?)`;
+      
+        // //     connection.promise().query(sqlProcedure, responses)
+        // //       .then ( ([rows]) => {
+        // //         console.table('Row inserted:' + results.affectedRows);
+        // //       })
+        // //       .catch(console.table)
+        // //       // .then (viewAllRoles)
+        // //     })
+            
+        // // }
+
+
+
 };
 
 
