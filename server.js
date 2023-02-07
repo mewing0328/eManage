@@ -217,12 +217,19 @@ const addEmployee = () => {
                             console.log(newEmployeeArray)   
                             break
                           } else {
-                            let managerId = 'null'
+                            // in SQL, NULL is considered a INT null would be as is without quotes
+                            let managerId = null
                             newEmployeeArray.push(managerId)
                             console.log(newEmployeeArray)
                             break   
                           }
                         }
+                          let sqlProcedure =
+                            `INSERT INTO employees (first_name, last_name, role_id, manager)
+                            VALUES (?, ?, ?, ?)`;
+                          connection.promise().query(sqlProcedure, newEmployeeArray)
+                          console.log(`!----- New role added: ${newEmployeeArray} -----!`)
+                          viewAllEmpl()
                       })
                     })
               

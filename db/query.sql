@@ -35,7 +35,8 @@ SELECT id, CONCAT(first_name, ' ', last_name) AS mgrName, role_id, manager
 FROM employees
 
   -- for the sqlProcedure parameter for connection query
-
+INSERT INTO employees (first_name, last_name, role_id, manager)
+VALUES (?, ?, ?, ?);
 
 
 

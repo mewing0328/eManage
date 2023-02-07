@@ -145,3 +145,5 @@ Credit for tutorials and guides I utilized in my code
 [mysqltutorial.org](https://www.mysqltutorial.org/mysql-nodejs/insert/): How to add a new row to a SQL table with an inquirer answer
 
 [suvarna28 GitHub](https://github.com/suvarna28): utilized her approach for self referencing the employees table to get manager name. Altered her approach to use NATURAL JOIN as well
+
+[stackoverflow.com](https://stackoverflow.com/questions/6054368/null-value-for-int-in-update-statement): Article discussing null as an INT data type so no need for quotes when assigning null to an array row
