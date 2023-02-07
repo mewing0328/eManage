@@ -46,11 +46,17 @@ function askUser () {
       else if (answer.menuAnswer === 'Add Role'){
         addRole();
       }
+      else if (answer.menuAnswer === 'Close Application'){
+        console.log('Goodbye!')
+        connection.end;
+      }
       else
       {console.log('BUG AT askUser function');
       }
     });
   };
+
+
 
 
 
@@ -120,13 +126,10 @@ const addDept = () => {
 const addRole = () => {          
           connection.promise().query(`SELECT * FROM departments`)
           .then ( ([rows]) => {
-            //console.info(rows); // an object of just department names
             const departments = []; // created a blank array
-            // for loop to push array items into the blank array
             for (let i=0; i < rows.length; i++) {
                 departments.push(rows[i].dept_name) // my rows array had dept_name as the beginning part of each department
               }
-              console.log (departments)
               inquirer.prompt ([
                         {
                           type: 'input',
@@ -136,120 +139,40 @@ const addRole = () => {
                               if(!isNaN(answer)) return "Only use letters.";
                               else return true;
                           }
-                      },
-                      {
-                          type: 'input',
-                          name: 'newSalary',
-                          message: 'What is the salary of the role?',
-                          validate: function(answer){
-                              if(isNaN(answer)) return "Only use numbers.";
-                              else return true;
-                          }
-                      },
-                      {
-                        type: 'list',
-                        name: 'newRoleDept',
-                        message: 'Which department does the new role belong?',
-                        choices: departments //shows each department from the const which was for looped above
-                      }
-                    ])
-            
-                  .then((answers) => {
-                    let deptName = answers.newRoleDept
-                    console.log(answers.newRoleDept)
-                    console.log(rows)
-
-
-
-                      for (let i=0; i < rows.length; i++) {
-                        if (deptName === rows[i].dept_name) {
-                          console.log(rows[i].dept_id)
-                          deptId = rows[i].dept_id
-                          console.log(deptId)
-
-
+                        },
+                        {
+                            type: 'input',
+                            name: 'newSalary',
+                            message: 'What is the salary of the role?',
+                            validate: function(answer){
+                                if(isNaN(answer)) return "Only use numbers.";
+                                else return true;
+                            }
+                        },
+                        {
+                          type: 'list',
+                          name: 'newRoleDept',
+                          message: 'Which department does the new role belong?',
+                          choices: departments //shows each department from the const which was for looped above
+                        }
+              ])
+              .then((answers) => {
+                let deptName = answers.newRoleDept
+                for (let i=0; i < rows.length; i++) {
+                  if (deptName === rows[i].dept_name) {
+                    deptId = rows[i].dept_id
                           let responses = [
                             [answers.newRole],
                             [answers.newSalary],
                             [deptId]
                           ];
-                          console.log(responses)
                           let sqlProcedure = 
                             `INSERT INTO roles (role_title, salary, dept_id)
                             VALUES (?, ?, ?)`;
-                  
                           connection.promise().query(sqlProcedure, responses)
                           .then (viewAllRoles)
-                        }
-                      }
-
-
-                 
-
-
-                  })
-
-
-
+                  }
+                }             
+              })
             })
-
-
-        
-
-        
-
-        
-    
-
-
-
-      
-
-        // // run a SQL query for the current departments
-
-        
-
-        // //console.log(departments)
-
-
-
-
-        // // const partTwo = () => {
-        // //   inquirer.prompt(inquirerQuestions.role)
-        // //   .then((answers) => {
-        // //     let responses = [
-        // //       [answers.newRole],
-        // //       [answers.newSalary],
-        // //       [answers.newRoleDept]
-        // //     ];
-        // //     console.log(responses)
-        // //     let sqlProcedure = 
-        // //       `INSERT INTO roles (role_title, salary, dept_id)
-        // //       VALUES (?, ?, ?)`;
-      
-        // //     connection.promise().query(sqlProcedure, responses)
-        // //       .then ( ([rows]) => {
-        // //         console.table('Row inserted:' + results.affectedRows);
-        // //       })
-        // //       .catch(console.table)
-        // //       // .then (viewAllRoles)
-        // //     })
-            
-        // // }
-
-
-
 };
-
-
-
-  
-  
-
-  
-
-
-
-
-// USE for when the user is done 
-// .then ( () => connection.end());
