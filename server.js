@@ -118,7 +118,7 @@ const addDept = () => {
 
 // ADD ROLE
 const addRole = () => {          
-          connection.promise().query(`SELECT dept_name FROM departments`)
+          connection.promise().query(`SELECT * FROM departments`)
           .then ( ([rows]) => {
             //console.info(rows); // an object of just department names
             const departments = []; // created a blank array
@@ -155,23 +155,39 @@ const addRole = () => {
                     ])
             
                   .then((answers) => {
-                    let responses = [
-                      [answers.newRole],
-                      [answers.newSalary],
-                      [answers.newRoleDept]
-                    ];
-                    console.log(responses)
-                    let sqlProcedure = 
-                      `INSERT INTO roles (role_title, salary, dept_id)
-                      VALUES (?, ?, ?)`;
-            
-                    connection.promise().query(sqlProcedure, responses)
-                      .then ( ([rows]) => {
-                        console.table('Row inserted:' + results.affectedRows);
-                      })
-                      .catch(console.table)
-                      // .then (viewAllRoles)
-                    })
+                    let deptName = answers.newRoleDept
+                    console.log(answers.newRoleDept)
+                    console.log(rows)
+
+
+
+                      for (let i=0; i < rows.length; i++) {
+                        if (deptName === rows[i].dept_name) {
+                          console.log(rows[i].dept_id)
+                          deptId = rows[i].dept_id
+                          console.log(deptId)
+
+
+                          let responses = [
+                            [answers.newRole],
+                            [answers.newSalary],
+                            [deptId]
+                          ];
+                          console.log(responses)
+                          let sqlProcedure = 
+                            `INSERT INTO roles (role_title, salary, dept_id)
+                            VALUES (?, ?, ?)`;
+                  
+                          connection.promise().query(sqlProcedure, responses)
+                          .then (viewAllRoles)
+                        }
+                      }
+
+
+                 
+
+
+                  })
 
 
 
