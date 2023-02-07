@@ -34,7 +34,7 @@ npm install
 The application will be invoked by using the following command:
 
 ```bash
-node server.js
+node index.js
 ```
 
 ```

@@ -210,20 +210,21 @@ const addEmployee = () => {
                       .then((answer) => {
                         let managerName = answer.newEmpManager
                         console.log(managerName)
-                        for (let i=0; i < rows.length; i++) {
-                          if (managerName === rows[i].mgrName) {
-                            let managerId = rows[i].id
-                            newEmployeeArray.push(managerId)       
-                            console.log(newEmployeeArray)   
-                            break
-                          } else {
+                          if (managerName === 'No Manager') {
                             // in SQL, NULL is considered a INT null would be as is without quotes
                             let managerId = null
                             newEmployeeArray.push(managerId)
-                            console.log(newEmployeeArray)
-                            break   
+                            console.log(newEmployeeArray + 'ELSE STATMENT USED')
+                          } else {
+                            for (let i=0; i < rows.length; i++) {
+                              if (managerName === rows[i].mgrName) {
+                                let managerId = rows[i].id
+                                console.log(rows[i].id)
+                                newEmployeeArray.push(managerId)       
+                                console.log(newEmployeeArray + 'IF STATMENT USED')   
+                              }
+                            }
                           }
-                        }
                           let sqlProcedure =
                             `INSERT INTO employees (first_name, last_name, role_id, manager)
                             VALUES (?, ?, ?, ?)`;
