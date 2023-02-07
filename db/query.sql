@@ -8,21 +8,24 @@ FROM roles
 NATURAL JOIN departments;
 
 -- VIEW ALL EMPLOYEES
--- TO DO: Figure out how to join the manager
-SELECT id AS 'ID', first_name AS 'FIRST NAME', last_name AS 'LAST NAME', role_title AS 'JOB TITLE', dept_name AS 'DEPARTMENT', salary 'SALARY', manager AS 'MANAGER'
-FROM employees
+SELECT a.id AS 'ID', a.first_name AS 'FIRST NAME', a.last_name AS 'LAST NAME', roles.role_title AS 'JOB TITLE', roles.salary AS 'SALARY', departments.dept_name AS 'DEPARTMENT', CONCAT(b.first_name,' ',  b.last_name) as MANAGER
+FROM employees a
 NATURAL JOIN roles
-NATURAL JOIN departments;
+NATURAL JOIN departments
+LEFT JOIN employees b ON a.manager = b.id;
 
 -- ADD DEPARTMENT
 INSERT INTO departments (dept_name)
 VALUES (?);
 
 -- ADD ROLE
-SELECT * FROM departments -- gets departments for the inquirer list
+  -- gets departments for the inquirer list
+SELECT * FROM departments 
 
-INSERT INTO roles (role_title, salary, dept_id) -- insert the answers of the user into the new row for the table
-VALUES (?);
+INSERT INTO roles (role_title, salary, dept_id)
+VALUES (?, ?, ?);
+
+-- ADD EMPLOYEE 
 
 
 
