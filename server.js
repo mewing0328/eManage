@@ -104,6 +104,7 @@ const viewAllEmpl = () => {
       .then (askUser);
 };
 
+
 // ADD DEPT
 const addDept = () => {
   inquirer.prompt(inquirerQuestions.department)
@@ -123,56 +124,90 @@ const addDept = () => {
 
 
 // ADD ROLE
-const addRole = () => {          
-          connection.promise().query(`SELECT * FROM departments`)
-          .then ( ([rows]) => {
-            const departments = []; // created a blank array
-            for (let i=0; i < rows.length; i++) {
-                departments.push(rows[i].dept_name) // my rows array had dept_name as the beginning part of each department
-              }
-              inquirer.prompt ([
-                        {
-                          type: 'input',
-                          name: 'newRole',
-                          message: 'What is the name of the role?',
-                          validate: function(answer){
-                              if(!isNaN(answer)) return "Only use letters.";
-                              else return true;
-                          }
-                        },
-                        {
-                            type: 'input',
-                            name: 'newSalary',
-                            message: 'What is the salary of the role?',
-                            validate: function(answer){
-                                if(isNaN(answer)) return "Only use numbers.";
-                                else return true;
-                            }
-                        },
-                        {
-                          type: 'list',
-                          name: 'newRoleDept',
-                          message: 'Which department does the new role belong?',
-                          choices: departments //shows each department from the const which was for looped above
-                        }
-              ])
-              .then((answers) => {
-                let deptName = answers.newRoleDept
-                for (let i=0; i < rows.length; i++) {
-                  if (deptName === rows[i].dept_name) {
-                    deptId = rows[i].dept_id
-                          let responses = [
-                            [answers.newRole],
-                            [answers.newSalary],
-                            [deptId]
-                          ];
-                          let sqlProcedure = 
-                            `INSERT INTO roles (role_title, salary, dept_id)
-                            VALUES (?, ?, ?)`;
-                          connection.promise().query(sqlProcedure, responses)
-                          .then (viewAllRoles)
-                  }
-                }             
-              })
-            })
+const addRole = () => {  
+  inquirer.prompt(inquirerQuestions.role)
+  .then((answers) => {
+    const newRoleArray = [answers.newRole, answers.newSalary]
+    connection.promise().query(`SELECT * FROM departments`)
+    .then ( ([rows]) => {
+      const departments = []; // created a blank array
+      for (let i=0; i < rows.length; i++) {departments.push(rows[i].dept_name)} // my rows array had dept_name as the beginning part of each department
+      inquirer.prompt ([
+        {
+          type: 'list',
+          name: 'newRoleDept',
+          message: 'Which department does the new role belong?',
+          choices: departments //shows each department from the const which was for looped above
+        }
+      ])
+      .then((answer) => {
+        let deptName = answer.newRoleDept
+        for (let i=0; i < rows.length; i++) {
+          if (deptName === rows[i].dept_name) { 
+            deptId = rows[i].dept_id
+            newRoleArray.push(deptId)
+            let sqlProcedure = 
+              `INSERT INTO roles (role_title, salary, dept_id)
+              VALUES (?, ?, ?)`;
+            console.log(newRoleArray)
+            connection.promise().query(sqlProcedure, newRoleArray)
+            .then (viewAllRoles)
+          }
+        }             
+      })
+    })
+  })
+  
+
+  // connection.promise().query(`SELECT * FROM departments`)
+  // .then ( ([rows]) => {
+  //   const departments = []; // created a blank array
+  //   for (let i=0; i < rows.length; i++) {departments.push(rows[i].dept_name)} // my rows array had dept_name as the beginning part of each department
+  //   inquirer.prompt ([
+  //       {
+  //         type: 'input',
+  //         name: 'newRole',
+  //         message: 'What is the name of the role?',
+  //         validate: function(answer){
+  //             if(!isNaN(answer)) return "Only use letters.";
+  //             else return true;
+  //         }
+  //       },
+  //       {
+  //           type: 'input',
+  //           name: 'newSalary',
+  //           message: 'What is the salary of the role?',
+  //           validate: function(answer){
+  //               if(isNaN(answer)) return "Only use numbers.";
+  //               else return true;
+  //           }
+  //       },
+  //       {
+  //         type: 'list',
+  //         name: 'newRoleDept',
+  //         message: 'Which department does the new role belong?',
+  //         choices: departments //shows each department from the const which was for looped above
+  //       }
+  //   ])
+  //           .then((answers) => {
+  //             let deptName = answers.newRoleDept
+  //             for (let i=0; i < rows.length; i++) {
+  //               if (deptName === rows[i].dept_name) { 
+  //                 deptId = rows[i].dept_id
+  //                 let responses = [
+  //                   [answers.newRole],
+  //                   [answers.newSalary],
+  //                   [deptId]
+  //                 ];
+  //                 let sqlProcedure = 
+  //                   `INSERT INTO roles (role_title, salary, dept_id)
+  //                   VALUES (?, ?, ?)`;
+  //                 connection.promise().query(sqlProcedure, responses)
+  //                 .then (viewAllRoles)
+  //               }
+  //             }             
+  //           })
+  // })
 };
+
+// ADD EMPLOYEE
