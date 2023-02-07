@@ -143,3 +143,5 @@ Credit for tutorials and guides I utilized in my code
 [npm: mysql2](https://www.npmjs.com/package/mysql2): Promises examples.
 
 [mysqltutorial.org](https://www.mysqltutorial.org/mysql-nodejs/insert/): How to add a new row to a SQL table with an inquirer answer
+
+[suvarna28 GitHub](https://github.com/suvarna28): utilized her approach for self referencing the employees table to get manager name. Altered her approach to use NATURAL JOIN as well

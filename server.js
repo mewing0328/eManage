@@ -46,6 +46,9 @@ function askUser () {
       else if (answer.menuAnswer === 'Add Role'){
         addRole();
       }
+      else if (answer.menuAnswer === 'Add Employee'){
+        addEmployee();
+      }
       else if (answer.menuAnswer === 'Close Application'){
         console.log('Goodbye!')
         connection.end;
@@ -126,16 +129,18 @@ const addRole = () => {
   inquirer.prompt(inquirerQuestions.role)
   .then((answers) => {
     const newRoleArray = [answers.newRole, answers.newSalary]
+    // GET the list of departments from database
     connection.promise().query(`SELECT * FROM departments`)
     .then ( ([rows]) => {
-      const departments = []; // created a blank array
-      for (let i=0; i < rows.length; i++) {departments.push(rows[i].dept_name)} // my rows array had dept_name as the beginning part of each department
+      const departments = []; // created a blank array for departments
+      // department table utilizes name of dept_name as the name of departments
+      for (let i=0; i < rows.length; i++) {departments.push(rows[i].dept_name)} 
       inquirer.prompt ([
         {
           type: 'list',
           name: 'newRoleDept',
           message: 'Which department does the new role belong?',
-          choices: departments //shows each department from the const which was for looped above
+          choices: departments //shows each department from departments table
         }
       ])
       .then((answer) => {
@@ -158,3 +163,74 @@ const addRole = () => {
 };
 
 // ADD EMPLOYEE
+const addEmployee = () => {
+  inquirer.prompt(inquirerQuestions.employee)
+  .then((answers) => {
+    const newEmployeeArray = [answers.newEmpFirst, answers.newEmpLast]
+
+      // GET the list of roles from database
+      connection.promise().query('SELECT * FROM roles')
+      .then ( ([rows]) => {
+        const roles = []; //created a blank array for roles
+        // roles table utilizes name of role_title as the name of roles
+        for (let i=0; i < rows.length; i++) {roles.push(rows[i].role_title)}
+        inquirer.prompt ([
+          {
+            type: 'list',
+            name: 'newEmpRole',
+            message: "What is the role of the new employee?",
+            choices: roles //shows each role from roles table
+          }
+        ])
+        .then((answer) => {
+          let roleName = answer.newEmpRole
+          for (let i=0; i < rows.length; i++) {
+            if (roleName === rows[i].role_title) {
+              roleId = rows[i].role_id
+              newEmployeeArray.push(roleId)  
+              console.log(newEmployeeArray) 
+              
+                    // GET the list of managers from database
+                    connection.promise().query("SELECT id, CONCAT(first_name, ' ', last_name) AS mgrName, role_id, manager FROM employees")
+                    .then ( ([rows]) => {
+                      const managers = []; //created a blank array for managers
+                      // employees table utilizes name of first_name and last_name as the name of managers
+                      for (let i=0; i < rows.length; i++) {managers.push(rows[i].mgrName)}
+                      managers.push('No Manager')
+                      console.info(rows)
+                      console.log(managers)
+                      inquirer.prompt ([
+                        {
+                          type: 'list',
+                          name: 'newEmpManager',
+                          message: "Who is the manager for the new employee?",
+                          choices: managers //shows each manager from employees table
+                        }
+                      ])
+                      .then((answer) => {
+                        let managerName = answer.newEmpManager
+                        console.log(managerName)
+                        for (let i=0; i < rows.length; i++) {
+                          if (managerName === rows[i].mgrName) {
+                            let managerId = rows[i].id
+                            newEmployeeArray.push(managerId)       
+                            console.log(newEmployeeArray)   
+                            break
+                          } else {
+                            let managerId = 'null'
+                            newEmployeeArray.push(managerId)
+                            console.log(newEmployeeArray)
+                            break   
+                          }
+                        }
+                      })
+                    })
+              
+            }
+          }
+        })
+      })
+
+
+  }) 
+};

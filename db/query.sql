@@ -14,18 +14,27 @@ NATURAL JOIN roles
 NATURAL JOIN departments
 LEFT JOIN employees b ON a.manager = b.id;
 
+
 -- ADD DEPARTMENT
+  -- for the sqlProcedure parameter for connection query
 INSERT INTO departments (dept_name)
 VALUES (?);
 
 -- ADD ROLE
   -- gets departments for the inquirer list
 SELECT * FROM departments 
-
+  -- for the sqlProcedure parameter for connection query
 INSERT INTO roles (role_title, salary, dept_id)
 VALUES (?, ?, ?);
 
 -- ADD EMPLOYEE 
+  -- gets roles id for the inquirer list
+SELECT * FROM roles
+  -- gets manager id list for the inquirer list
+SELECT id, CONCAT(first_name, ' ', last_name) AS mgrName, role_id, manager 
+FROM employees
+
+  -- for the sqlProcedure parameter for connection query
 
 
 
