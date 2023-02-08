@@ -39,4 +39,16 @@ INSERT INTO employees (first_name, last_name, role_id, manager)
 VALUES (?, ?, ?, ?);
 
 
+-- UPDATE ROLE OF EMPLOYEE
+  -- gets employee id for the inquirer list
+SELECT id, CONCAT(first_name, ' ', last_name) AS emplName, role_id, manager 
+FROM employees
+
+  -- gets the roles id for the inquirer list
+SELECT * FROM roles
+
+  -- for the sqlProcedure parameter for connection query
+UPDATE employees
+SET role_id = (?)
+WHERE id = (?);
 
