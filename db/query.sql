@@ -49,6 +49,6 @@ SELECT * FROM roles
 
   -- for the sqlProcedure parameter for connection query
 UPDATE employees
-SET role_id = (?)
-WHERE id = (?);
+SET role_id = (?) -- insert the variable name
+WHERE id = (?); -- insert the variable name
 

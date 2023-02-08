@@ -1,12 +1,15 @@
 const connection = require('./config/connection');
 const functions = require('./lib/functions');
+const chalk = require('chalk');
+const log = console.log;
 
 init();
 function init(){
-  console.log("=============================================================");
-  console.log("                                                            ");
-  console.log("Hello! Welcome to eManage, your employee database.");
-  console.log("                                                            ");
+  log(chalk.blue("==========================================================================================================="));
+  log("");
+  log(chalk.bold("Hello! Welcome to eManage, your employee database."));
+  log("");
+  log(chalk.cyan("==========================================================================================================="));
   connection.connect((err) => {
     if (err) throw err;
     functions.askUser();

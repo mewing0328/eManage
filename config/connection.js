@@ -1,4 +1,6 @@
 const mysql = require('mysql2');
+const chalk = require('chalk');
+const log = console.log;
 
 // create the connection to database
 const connection = mysql.createConnection(
@@ -11,7 +13,9 @@ const connection = mysql.createConnection(
         password: 'password',
         database: 'employees_db'
     },
-    console.log(`Connected to the employees_db database.`)
+    log(""),
+    log(chalk.green.italic(`Connected to the employees_db database.`)),
+    log(""),
 );
 
 module.exports = connection;
