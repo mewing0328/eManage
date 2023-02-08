@@ -2,7 +2,7 @@
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
-Command-line application to manage a company's employee database, using Node.js, Inquirer, Express, and MySQL.
+Command-line application to manage a company's employee database, using Node.js, Inquirer, Express, Chalk, and MySQL.
 
 ## Table of Contents
 [1. Installation](#installation)
@@ -38,25 +38,10 @@ node index.js
 ```
 
 ```
-Then a command-line application will appear.
-
-- The business owner (the user) will be able to view and manage the departments, roles, and employees in the company.
-
-- When the user starts the application, then the user is presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role. 
-
-- When the user chooses to view all departments, then the user is presented with a formatted table showing department names and department ids.
-
-- When the user chooses to view all roles, then the user is presented with the job title, role id, the department that role belongs to, and the salary for that role.
-
-- When the user chooses to view all employees, then the user is presented with a formatted table showing employee data, including employee ids, first name, last names, job titles, departments, salaries, and managers thtat the employees report to. 
-
-- When the user chooses to add a department, then the user is prompted to enter the name of the department and that department is added to the database.
-
-- When the user chooses to add a role, then the user is prompted to enter the name, salary, and department for the role and that role is added to the database. 
-
-- When the user chooses to add an employee, then the user is prompted to enter the employee's first name, last name, role, and manager, and that employee is added to the database. 
-
-- When the user chooses to update an employee role, then the user is prompted to select an employee to update their new role and this information is updated in the database.
+The application enables a user to:
+- view departments, a department's budget, roles, and employees in the company
+- add a departments, roles, and employees to a database
+- update an employee's role in the database
 
 ```
 
@@ -66,10 +51,10 @@ Then a command-line application will appear.
 The video is also within the assets folder.
 ```
 A walkthrough video demonstrates: 
-* the functionality of the employee tracker 
-* all of the technical acceptance criteria being met
-* how a user would invoke the application from the command line
-* a functional menu with the options outlined in the usage section
+- the functionality of the employee tracker 
+- all of the technical acceptance criteria being met
+- how a user would invoke the application from the command line
+- a functional menu with the options outlined in the usage section
 ```
 
 ## Contributing 
@@ -97,30 +82,41 @@ eManage project is covered by MIT license.
  ## Screenshots 
 Images of different menu options
 
-1. View Budget By
+1. View Budget By Department
 
     <img src="./assets/" style="width:30rem">
 
-2. View All Roles
+2. View All Departments
 
     <img src="./assets/" style="width:30rem">
 
-3. View All Employees
+3. View All Roles
 
     <img src="./assets/" style="width:30rem">
 
-4. Add Department
+4. View All Employees
 
     <img src="./assets/" style="width:30rem">
 
-5. xyz
+5. Add Department
 
     <img src="./assets/" style="width:30rem">
 
-6. xyz
+6. Add Role
 
     <img src="./assets/" style="width:30rem">
 
+7. Add Employee
+
+    <img src="./assets/" style="width:30rem">
+
+8. Update Employee Role
+
+    <img src="./assets/" style="width:30rem">
+
+9. Close Application
+
+    <img src="./assets/" style="width:30rem">
 
 ## Credits
 Credit for tutorials and guides I utilized in my code
