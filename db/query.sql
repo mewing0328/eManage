@@ -52,3 +52,12 @@ UPDATE employees
 SET role_id = (?) -- insert the variable name
 WHERE id = (?); -- insert the variable name
 
+
+
+-- VIEW BUDGET BY DEPARTMENT
+  -- gets the departments list for inquirer
+SELECT * FROM departments
+  -- for the sqlProcedure parameter for connection query
+SELECT sum(salary) AS Budget 
+FROM roles
+WHERE dept_id = (?); -- insert the variable name
