@@ -64,16 +64,17 @@ Then a command-line application will appear.
 [Link for demo video](x) (Length of video: x minutes and x seconds)
 
 The video is also within the assets folder.
-
+```
 A walkthrough video demonstrates: 
-- xyz
-- xyz
-- xyz
-
+* the functionality of the employee tracker 
+* all of the technical acceptance criteria being met
+* how a user would invoke the application from the command line
+* a functional menu with the options outlined in the usage section
+```
 
 ## Contributing 
 Contributions are welcomed for future versions with features such as:
-- xyz
+- update employee managers, view employees by manager, view employees by department, and delete departments or roles or employees
 - additional enhancements
 
 For all contributions, please refer to [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) for contributing guidelines.
@@ -94,21 +95,21 @@ eManage project is covered by MIT license.
  [![MIT}](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
  ## Screenshots 
-Utilized Visual Studio Code
+Images of different menu options
 
-1. Demo of 
-
-    <img src="./assets/" style="width:30rem">
-
-2. xyz
+1. View Budget By
 
     <img src="./assets/" style="width:30rem">
 
-3. xyz
+2. View All Roles
 
     <img src="./assets/" style="width:30rem">
 
-4. xyz
+3. View All Employees
+
+    <img src="./assets/" style="width:30rem">
+
+4. Add Department
 
     <img src="./assets/" style="width:30rem">
 
@@ -150,3 +151,4 @@ Credit for tutorials and guides I utilized in my code
 
 [stackoverflow.com](https://stackoverflow.com/questions/6054368/null-value-for-int-in-update-statement): Article discussing null as an INT data type so no need for quotes when assigning null to an array row
 
+[behindthename.com](https://www.behindthename.com/random): Random name generator for table data
