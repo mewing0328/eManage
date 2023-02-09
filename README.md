@@ -46,7 +46,7 @@ The application enables a user to:
 ```
 
 ## Demo
-[Link for demo video](x) (Length of video: x minutes and x seconds)
+[Link for demo video](https://watch.screencastify.com/v/oQx2UiusGCq61tafIFtZ) (Length of video: 4 minutes and 25 seconds)
 
 The video is also within the assets folder.
 ```
@@ -84,39 +84,39 @@ Images of different menu options
 
 1. View Budget By Department
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/viewBudget.png" style="width:30rem">
 
 2. View All Departments
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/viewDept.png" style="width:30rem">
 
 3. View All Roles
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/viewRoles.png" style="width:30rem">
 
 4. View All Employees
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/viewEmpls.png" style="width:30rem">
 
 5. Add Department
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/addDept.png" style="width:30rem">
 
 6. Add Role
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/addRole.png" style="width:30rem">
 
 7. Add Employee
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/addEmpl.png" style="width:30rem">
 
 8. Update Employee Role
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/updateRole.png" style="width:30rem">
 
 9. Close Application
 
-    <img src="./assets/" style="width:30rem">
+    <img src="./assets/close.png" style="width:30rem">
 
 ## Credits
 Credit for tutorials and guides I utilized in my code
