@@ -21,8 +21,6 @@ Command-line application to manage a company's employee database, using Node.js,
 
 [8. Credits](#credits)
 
-<br></br>
-
 ## Installation 
 The application has dependencies (see package.json file). Before using the application, install npm modules.
 
